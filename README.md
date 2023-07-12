@@ -4,7 +4,7 @@ A package to calculate magnetic fields from solenoids.
 
 ## About
 
-This package aims to aid the calculation the magnetic fields within (and to a lesser extent around), tightly wound solenoidal electromagnets, quickly and without the need for sophisticated field modelling software that uses computationally expensive methods, such as Finite Element Analysis. The kinds of solenoids this package is aimed at are those usually used in MRI machines or particle accelerators.
+This package aims enable the calculation of magnetic fields within (and to a lesser extent around), tightly wound solenoidal electromagnets. The primary goal is to be able to compute fields quickly and without the need for sophisticated field modelling software that uses computationally expensive methods such as Finite Element Analysis. The kinds of solenoids this package is aimed at are those usually found in MRI machines or particle accelerators.
 
 The mathematics for these calculations can be found in [here](https://ntrs.nasa.gov/citations/20140002333).
 
