@@ -1,8 +1,6 @@
 package golenoid
 
 import (
-	"math"
-
 	"gonum.org/v1/gonum/mathext"
 )
 
@@ -21,10 +19,12 @@ func CalculateFieldFromLoopPolar(current, a, r, z float64) (Br, Bphi, Bz float64
 	beta := calculateBeta(a, r, z)
 	ksq := calculateKsquared(alpha, beta)
 
-	Br = C * z / (2 * alpha * alpha * beta * r) * ((a*a+r*r+z*z)*mathext.CompleteE(ksq) - (alpha*alpha)*mathext.CompleteK(ksq))
-	if math.IsNaN(Br) {
-		// This handles the special case where the point at r=0.
+	if r == 0 {
+		// This handles the special case where the point lies on the magnetic axis (r=0).
+		// Otherwise Br ends up being NaN or +/-Inf.
 		Br = 0
+	} else {
+		Br = C * z / (2 * alpha * alpha * beta * r) * ((a*a+r*r+z*z)*mathext.CompleteE(ksq) - (alpha*alpha)*mathext.CompleteK(ksq))
 	}
 	Bphi = 0
 	Bz = C / (2 * alpha * alpha * beta) * ((a*a-r*r-z*z)*mathext.CompleteE(ksq) + alpha*alpha*mathext.CompleteK(ksq))
