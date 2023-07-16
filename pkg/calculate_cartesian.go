@@ -16,7 +16,6 @@ import (
 //   - y: the y coordinate of the point in metres
 //   - z: the z coordinate of the point in metres
 func CalculateFieldFromLoopCartesian(current, a, x, y, z float64) (Bx, By, Bz float64) {
-	// TODO @JoeLanglands Check these are correct
 	r := math.Sqrt(x*x + y*y)
 	rho := math.Sqrt(x*x + y*y + z*z)
 	C := calculateC(current)
@@ -24,8 +23,9 @@ func CalculateFieldFromLoopCartesian(current, a, x, y, z float64) (Bx, By, Bz fl
 	beta := calculateBeta(a, r, z)
 	ksq := calculateKsquared(alpha, beta)
 
-	Bx = C * x * z / (2 * alpha * alpha * beta * rho * rho) * ((a*a+r*r)*mathext.CompleteE(ksq) - (alpha*alpha)*mathext.CompleteK(ksq))
+	// TODO @JoeLanglands handle the case where x=0
+	Bx = C * x * z / (2 * alpha * alpha * beta * r * r) * ((a*a+rho*rho)*mathext.CompleteE(ksq) - (alpha*alpha)*mathext.CompleteK(ksq))
 	By = (y / x) * Bx
-	Bz = C / (2 * alpha * alpha * beta) * ((a*a+r*r)*mathext.CompleteE(ksq) - alpha*alpha*mathext.CompleteK(ksq))
+	Bz = C / (2 * alpha * alpha * beta) * ((a*a+rho*rho)*mathext.CompleteE(ksq) - alpha*alpha*mathext.CompleteK(ksq))
 	return
 }
